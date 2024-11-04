@@ -2,17 +2,32 @@ import {
   Route,
   Switch,
   HashRouter,
-  BrowserRouter
+  BrowserRouter,
+  useHistory
 } from 'react-router-dom'
 import { useConnect } from 'wagmi'
 
+const NotFound = () => {
+  const history = useHistory()
+
+  return <>
+    <h1>Not found</h1>
+    <button
+      onClick={() => {
+        history.push('/99666')
+      }}
+    >GO TO TEST PAGE</button>
+  </>
+}
+
 const Router = () => {
   const { connect, connectors } = useConnect()
+
   const coinbaseConnector = connectors.find(connector => connector.id === "coinbaseWalletSDK")
 
   return <BrowserRouter>
     <Switch>
-      <Route path='/redeem/xxx'>
+      <Route path='/99666'>
         
         <button
           onClick={() => {
@@ -24,7 +39,7 @@ const Router = () => {
       </Route>
       
       <Route path='*'>
-        <h1>Not found</h1>
+        <NotFound />
       </Route>
     </Switch>
   </BrowserRouter>
